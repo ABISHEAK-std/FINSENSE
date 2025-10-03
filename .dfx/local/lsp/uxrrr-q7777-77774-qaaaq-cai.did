@@ -1,0 +1,92 @@
+type ChatInteraction = record {
+  id : nat;
+  emotion : text;
+  userMessage : text;
+  entities : vec text;
+  timestamp : int;
+  botResponse : text;
+};
+type Expense = record {
+  id : nat;
+  title : text;
+  date : text;
+  category : text;
+  amount : nat;
+};
+type Finsense = service {
+  addBotMessage : (text, text) -> (Message);
+  addExpense : (text, nat, text, text) -> (Expense);
+  addHolding : (text, nat, nat) -> (Holding);
+  addIncome : (nat, text, opt text, text, text) -> (Income);
+  addMessage : (text, int) -> (Message);
+  deleteUserData : () -> (bool);
+  exportUserData : () -> (
+      record {
+        messages : vec Message;
+        chatInteractions : vec ChatInteraction;
+        expenses : vec Expense;
+        holdings : vec Holding;
+        incomes : vec Income;
+        profile : opt UserProfile;
+      },
+    ) query;
+  getCanisterInfo : () -> (
+      record {
+        totalMessages : nat;
+        totalExpenses : nat;
+        totalHoldings : nat;
+        totalChatInteractions : nat;
+        totalIncomes : nat;
+      },
+    ) query;
+  getChatInteractions : () -> (vec ChatInteraction) query;
+  getExpenses : () -> (vec Expense) query;
+  getHoldings : () -> (vec Holding) query;
+  getIncomes : () -> (vec Income) query;
+  getMessages : () -> (vec Message) query;
+  getUserProfile : () -> (opt UserProfile) query;
+  removeExpense : (nat) -> (bool);
+  removeHolding : (nat) -> (bool);
+  removeIncome : (nat) -> (bool);
+  storeChatInteraction : (text, text, text, vec text) -> (ChatInteraction);
+  updateUserProfile : (
+      opt text,
+      opt nat,
+      opt nat,
+      opt text,
+      opt nat,
+      opt text,
+      opt text,
+      opt text,
+      opt vec text,
+    ) -> (UserProfile);
+  whoami : () -> (principal) query;
+};
+type Holding = record { id : nat; shares : nat; avgPrice : nat; symbol : text };
+type Income = record {
+  id : nat;
+  source : text;
+  emotion : text;
+  date : text;
+  description : opt text;
+  amount : nat;
+};
+type Message = record {
+  id : nat;
+  content : text;
+  emotion : opt text;
+  messageType : text;
+  timestamp : int;
+};
+type UserProfile = record {
+  salary : opt nat;
+  country : opt text;
+  riskTolerance : opt text;
+  expenses : opt nat;
+  name : opt text;
+  language : opt text;
+  lifeStage : opt text;
+  goals : vec text;
+  targetSavings : opt nat;
+};
+service : Finsense

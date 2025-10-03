@@ -1,0 +1,96 @@
+type UserProfile = 
+ record {
+   country: opt text;
+   expenses: opt nat;
+   goals: vec text;
+   language: opt text;
+   lifeStage: opt text;
+   name: opt text;
+   riskTolerance: opt text;
+   salary: opt nat;
+   targetSavings: opt nat;
+ };
+type Message = 
+ record {
+   content: text;
+   emotion: opt text;
+   id: nat;
+   messageType: text;
+   timestamp: int;
+ };
+type Income = 
+ record {
+   amount: nat;
+   date: text;
+   description: opt text;
+   emotion: text;
+   id: nat;
+   source: text;
+ };
+type Holding = 
+ record {
+   avgPrice: nat;
+   id: nat;
+   shares: nat;
+   symbol: text;
+ };
+type Expense = 
+ record {
+   amount: nat;
+   category: text;
+   date: text;
+   id: nat;
+   title: text;
+ };
+type ChatInteraction = 
+ record {
+   botResponse: text;
+   emotion: text;
+   entities: vec text;
+   id: nat;
+   timestamp: int;
+   userMessage: text;
+ };
+service : {
+  addBotMessage: (content: text, emotion: text) -> (Message);
+  addExpense: (title: text, amount: nat, date: text, category: text) ->
+   (Expense);
+  addHolding: (symbol: text, shares: nat, avgPrice: nat) -> (Holding);
+  addIncome: (amount: nat, source: text, description: opt text, date: 
+   text, emotion: text) -> (Income);
+  addMessage: (content: text, timestamp: int) -> (Message);
+  deleteUserData: () -> (bool);
+  exportUserData: () ->
+   (record {
+      chatInteractions: vec ChatInteraction;
+      expenses: vec Expense;
+      holdings: vec Holding;
+      incomes: vec Income;
+      messages: vec Message;
+      profile: opt UserProfile;
+    }) query;
+  getCanisterInfo: () ->
+   (record {
+      totalChatInteractions: nat;
+      totalExpenses: nat;
+      totalHoldings: nat;
+      totalIncomes: nat;
+      totalMessages: nat;
+    }) query;
+  getChatInteractions: () -> (vec ChatInteraction) query;
+  getExpenses: () -> (vec Expense) query;
+  getHoldings: () -> (vec Holding) query;
+  getIncomes: () -> (vec Income) query;
+  getMessages: () -> (vec Message) query;
+  getUserProfile: () -> (opt UserProfile) query;
+  removeExpense: (id: nat) -> (bool);
+  removeHolding: (id: nat) -> (bool);
+  removeIncome: (id: nat) -> (bool);
+  storeChatInteraction: (userMessage: text, botResponse: text, emotion: 
+   text, entities: vec text) -> (ChatInteraction);
+  updateUserProfile: (name: opt text, salary: opt nat, expenses: opt nat,
+   riskTolerance: opt text, targetSavings: opt nat, country: opt text,
+   language: opt text, lifeStage: opt text, goals: opt vec text) ->
+   (UserProfile);
+  whoami: () -> (principal) query;
+}

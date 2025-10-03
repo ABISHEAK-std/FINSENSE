@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "dfx": "0.28.0",
+  "canisters": {
+    "finsense_backend": {
+      "type": "motoko",
+      "main": "ic/backend/main.mo",
+      "candid": "ic/backend/service.did",
+      "dependencies": []
+    },
+    "finsense_frontend": {
+      "type": "assets",
+      "source": ["dist"],
+      "dependencies": ["finsense_backend"],
+      "asset_policy": ".ic-assets.json5"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral"
+    },
+    "ic": {
+        "type": "persistent",
+      "providers": ["https://ic0.app"]
+    }
+  }
+}

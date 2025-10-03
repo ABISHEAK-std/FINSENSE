@@ -1,0 +1,100 @@
+type Expense = 
+ record {
+   amount: nat;
+   category: text;
+   date: text;
+   id: nat;
+   title: text;
+ };
+
+type Holding = 
+ record {
+   avgPrice: nat;
+   id: nat;
+   shares: nat;
+   symbol: text;
+ };
+
+type Message = 
+ record {
+   content: text;
+   emotion: opt text;
+   id: nat;
+   messageType: text;
+   timestamp: int;
+ };
+
+type ChatInteraction = 
+ record {
+   botResponse: text;
+   emotion: text;
+   entities: vec text;
+   id: nat;
+   timestamp: int;
+   userMessage: text;
+ };
+
+type Income = 
+ record {
+   amount: nat;
+   date: text;
+   description: opt text;
+   emotion: text;
+   id: nat;
+   source: text;
+ };
+
+type UserProfile = 
+ record {
+   country: opt text;
+   expenses: opt nat;
+   goals: vec text;
+   language: opt text;
+   lifeStage: opt text;
+   name: opt text;
+   riskTolerance: opt text;
+   salary: opt nat;
+   targetSavings: opt nat;
+ };
+
+type ExportData = 
+ record {
+   chatInteractions: vec ChatInteraction;
+   expenses: vec Expense;
+   holdings: vec Holding;
+   incomes: vec Income;
+   messages: vec Message;
+   profile: opt UserProfile;
+ };
+
+type CanisterInfo = 
+ record {
+   totalChatInteractions: nat;
+   totalExpenses: nat;
+   totalHoldings: nat;
+   totalIncomes: nat;
+   totalMessages: nat;
+ };
+
+service : {
+  addExpense: (text, nat, text, text) -> (Expense);
+  addHolding: (text, nat, nat) -> (Holding);
+  addIncome: (nat, text, opt text, text, text) -> (Income);
+  addMessage: (text, int) -> (Message);
+  addBotMessage: (text, text) -> (Message);
+  deleteUserData: () -> (bool);
+  exportUserData: () -> (ExportData) query;
+  getCanisterInfo: () -> (CanisterInfo) query;
+  getChatInteractions: () -> (vec ChatInteraction) query;
+  getExpenses: () -> (vec Expense) query;
+  getHoldings: () -> (vec Holding) query;
+  getIncomes: () -> (vec Income) query;
+  getMessages: () -> (vec Message) query;
+  getUserProfile: () -> (opt UserProfile) query;
+  removeExpense: (nat) -> (bool);
+  removeHolding: (nat) -> (bool);
+  removeIncome: (nat) -> (bool);
+  storeChatInteraction: (text, text, text, vec text) -> (ChatInteraction);
+  updateUserProfile: (opt text, opt nat, opt nat, opt text, opt nat, opt text, opt text, opt text, opt vec text) -> (UserProfile);
+  whoami: () -> (principal) query;
+}

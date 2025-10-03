@@ -1,0 +1,42 @@
+type Message = 
+ record {
+   content: text;
+   id: nat;
+   timestamp: nat;
+ };
+type Holding = 
+ record {
+   avgPrice: nat;
+   id: nat;
+   shares: nat;
+   symbol: text;
+ };
+type Finsense = 
+ service {
+   addExpense: (title: text, amount: nat, date: text, category: text) ->
+    (Expense);
+   addHolding: (symbol: text, shares: nat, avgPrice: nat) -> (Holding);
+   addMessage: (content: text, timestamp: nat) -> (Message);
+   chat: (request: record {
+                     language: text;
+                     message: text;
+                     user_id: text;
+                   }) -> (record {
+                            advice: text;
+                            emotion: text;
+                          });
+   getExpenses: () -> (vec Expense) query;
+   getHoldings: () -> (vec Holding) query;
+   getMessages: () -> (vec Message) query;
+   removeExpense: (id: nat) -> (bool);
+   removeHolding: (id: nat) -> (bool);
+ };
+type Expense = 
+ record {
+   amount: nat;
+   category: text;
+   date: text;
+   id: nat;
+   title: text;
+ };
+service : () -> Finsense

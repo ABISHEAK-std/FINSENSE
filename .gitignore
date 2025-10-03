@@ -1,0 +1,21 @@
+.DS_Store
+node_modules
+.idea
+package-lock.json
+/build
+.vscode/
+.idea/
+vite.config.*s.*
+.vercel
+
+# Local Netlify folder
+.netlify
+".env" 
+".env.local" 
+".env" 
+".env.local" 
+".env" 
+".env.local" 
+"__pycache__/" 
+"*.pyc" 
+"node_modules/" 

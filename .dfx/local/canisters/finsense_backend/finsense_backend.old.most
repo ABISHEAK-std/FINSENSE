@@ -1,0 +1,8 @@
+// Version: 1.0.0
+actor {
+  stable var nextChatId : Nat;
+  stable var nextExpenseId : Nat;
+  stable var nextHoldingId : Nat;
+  stable var nextIncomeId : Nat;
+  stable var nextMessageId : Nat
+};

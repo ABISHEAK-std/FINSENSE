@@ -1,0 +1,20 @@
+{
+  "local": {
+    "finsense_backend": {
+      "canister_id": "uxrrr-q7777-77774-qaaaq-cai"
+    },
+    "finsense_frontend": {
+      "canister_id": "u6s2n-gx777-77774-qaaba-cai"
+    }
+  },
+  "ic": {
+    "finsense_backend": {
+      "canister_id": "rrkah-fqaaa-aaaah-qcai-cai"
+    },
+    "finsense_frontend": {
+      "canister_id": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+    }
+  }
+}
+
+
