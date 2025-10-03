@@ -19,3 +19,4 @@ vite.config.*s.*
 "__pycache__/" 
 "*.pyc" 
 "node_modules/" 
+".env.local" 
